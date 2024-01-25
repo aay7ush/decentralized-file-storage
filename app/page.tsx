@@ -1,3 +1,9 @@
+import MainContent from "@/components/MainContent"
+
 export default function Home() {
-  return <main></main>
+  return (
+    <main>
+      <MainContent />
+    </main>
+  )
 }
