@@ -16,7 +16,7 @@ const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
   return (
     <div className="relative bg-[#effaff] border-dashed border-blue-100 border-[7px]  rounded-xl grid place-content-center">
       <Image
-        src="/files.svg"
+        src="/files-illustration.svg"
         alt="files illustration"
         width={350}
         height={350}
