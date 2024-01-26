@@ -1,20 +1,34 @@
 "use client"
 
+import { saveAs } from "file-saver"
+import { create } from "ipfs-http-client"
 import { Download, Share2, X } from "lucide-react"
 import Image from "next/image"
 
 const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
+  const ipfs = create({
+    host: "localhost",
+    port: 5001,
+    protocol: "http",
+  })
+
   const removeFile = (hash: string) => {
     setFiles((prev) => prev.filter((file) => file.hash !== hash))
   }
 
-  const downloadFile = async (hash: string) => {
-    // Add your download logic here
+  const downloadFile = async (file: { hash: string; name: string }) => {
+    const stream = ipfs.cat(file.hash)
+    let data = new Uint8Array()
+
+    for await (const chunk of stream) {
+      data = Uint8Array.from([...data, ...chunk])
+    }
+
+    const blob = new Blob([data.buffer], { type: "application/octet-stream" })
+    saveAs(blob, file.name)
   }
 
-  const shareFile = (hash: string) => {
-    // Add your share logic here
-  }
+  const shareFile = (hash: string) => {}
 
   return (
     <section className="space-y-5 overflow-y-scroll max-h-[420px] overflow-hidden no-scrollbar">
@@ -38,7 +52,7 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
             </button>
             <button
               className="border-2 p-1 border-blue-500 text-blue-500 rounded-full transition duration-200 hover:bg-blue-500 hover:text-white"
-              onClick={() => downloadFile(file.hash)}
+              onClick={() => downloadFile(file)}
             >
               <Download size={18} />
             </button>
