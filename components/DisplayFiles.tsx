@@ -16,7 +16,9 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
 
           <div className="w-full">
             <p className="text-lg font-bold">{file.name}</p>
-            <p className="text-gray-500 text-sm">{file.size} KB</p>
+            <p className="text-gray-500 text-sm">
+              {(file.size / 1024).toFixed(2)} KB
+            </p>
           </div>
 
           <div className="flex gap-3">
