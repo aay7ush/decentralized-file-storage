@@ -13,6 +13,7 @@
     "@near-wallet-selector/modal-ui": "^8.9.3",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
+    "clipboard-copy": "^4.0.1",
     "clsx": "^2.1.0",
     "file-saver": "^2.0.5",
     "ipfs-http-client": "^60.0.1",
