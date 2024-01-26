@@ -9,7 +9,7 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
   }
 
   return (
-    <div className="space-y-5 overflow-y-scroll max-h-[420px] overflow-hidden no-scrollbar">
+    <section className="space-y-5 overflow-y-scroll max-h-[420px] overflow-hidden no-scrollbar">
       {files.map((file) => (
         <div className="flex items-center gap-3 shadow-sm p-2" key={file.id}>
           <Image src="/file-icon.svg" alt="file icon" width={50} height={50} />
@@ -35,7 +35,7 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
           </div>
         </div>
       ))}
-    </div>
+    </section>
   )
 }
 export default DisplayFiles

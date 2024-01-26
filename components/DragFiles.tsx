@@ -14,7 +14,7 @@ const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
   }
 
   return (
-    <div className="relative bg-[#effaff] border-dashed border-blue-100 border-[7px]  rounded-xl grid place-content-center">
+    <section className="relative bg-[#effaff] border-dashed border-blue-100 border-[7px]  rounded-xl grid place-content-center">
       <Image
         src="/files-illustration.svg"
         alt="files illustration"
@@ -35,7 +35,7 @@ const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
         onChange={onFileDrop}
         multiple
       />
-    </div>
+    </section>
   )
 }
 
