@@ -2,6 +2,7 @@ type FileObject = {
   id: string
   name: string
   size: number
+  hash: string
 }
 
 type DragFilesProps = {

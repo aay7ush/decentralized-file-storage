@@ -1,16 +1,31 @@
+import { create } from "ipfs-http-client"
 import { nanoid } from "nanoid"
 import Image from "next/image"
 
+const ipfs = create({
+  host: "localhost",
+  port: 5001,
+  protocol: "http",
+})
+
 const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
-  const onFileDrop = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newFiles: FileObject[] = Array.from(
+  const onFileDrop = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newFiles: Promise<FileObject>[] = Array.from(
       event.target.files as FileList
-    ).map((file) => ({
-      id: nanoid(),
-      name: file.name,
-      size: file.size,
-    }))
-    setFiles((prev) => [...prev, ...newFiles])
+    ).map(async (file) => {
+      const fileData = new Uint8Array(await file.arrayBuffer())
+      const result = await ipfs.add(fileData)
+
+      return {
+        id: nanoid(),
+        name: file.name,
+        size: file.size,
+        hash: result.path, // Store the unique hash of the file
+      }
+    })
+
+    const resolvedFiles = await Promise.all(newFiles)
+    setFiles((prev) => [...prev, ...resolvedFiles])
   }
 
   return (
