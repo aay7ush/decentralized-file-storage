@@ -4,8 +4,16 @@ import { Download, Share2, X } from "lucide-react"
 import Image from "next/image"
 
 const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
-  const removeFile = (name: string) => {
-    setFiles((prev) => prev.filter((file) => file.name !== name))
+  const removeFile = (hash: string) => {
+    setFiles((prev) => prev.filter((file) => file.hash !== hash))
+  }
+
+  const downloadFile = async (hash: string) => {
+    // Add your download logic here
+  }
+
+  const shareFile = (hash: string) => {
+    // Add your share logic here
   }
 
   return (
@@ -22,15 +30,21 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
           </div>
 
           <div className="flex gap-3">
-            <button className="border-2 p-1 border-green-500 text-green-500 rounded-full transition duration-200 hover:bg-green-500 hover:text-white">
+            <button
+              className="border-2 p-1 border-green-500 text-green-500 rounded-full transition duration-200 hover:bg-green-500 hover:text-white"
+              onClick={() => shareFile(file.hash)}
+            >
               <Share2 size={18} />
             </button>
-            <button className="border-2 p-1 border-blue-500 text-blue-500 rounded-full transition duration-200 hover:bg-blue-500 hover:text-white">
+            <button
+              className="border-2 p-1 border-blue-500 text-blue-500 rounded-full transition duration-200 hover:bg-blue-500 hover:text-white"
+              onClick={() => downloadFile(file.hash)}
+            >
               <Download size={18} />
             </button>
             <button
               className="border-2 p-1 border-red-500 text-red-500 rounded-full transition duration-200 hover:bg-red-500 hover:text-white"
-              onClick={() => removeFile(file.name)}
+              onClick={() => removeFile(file.hash)}
             >
               <X size={18} />
             </button>
@@ -40,4 +54,5 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
     </section>
   )
 }
+
 export default DisplayFiles
