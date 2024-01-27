@@ -1,39 +1,38 @@
-"use client";
+"use client"
 
-import { saveAs } from "file-saver";
-import { create } from "ipfs-http-client";
-import { Download, Share2, X } from "lucide-react";
-import copy from "clipboard-copy";
-import Image from "next/image";
+import { saveAs } from "file-saver"
+import { create } from "ipfs-http-client"
+import { Download, Share2, X } from "lucide-react"
+import Image from "next/image"
 
 const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
   const ipfs = create({
     host: "localhost",
     port: 5001,
     protocol: "http",
-  });
+  })
 
   const removeFile = (hash: string) => {
-    setFiles((prev) => prev.filter((file) => file.hash !== hash));
-  };
+    setFiles((prev) => prev.filter((file) => file.hash !== hash))
+  }
 
   const downloadFile = async (file: { hash: string; name: string }) => {
-    const stream = ipfs.cat(file.hash);
-    let data = new Uint8Array();
+    const stream = ipfs.cat(file.hash)
+    let data = new Uint8Array()
 
     for await (const chunk of stream) {
-      data = Uint8Array.from([...data, ...chunk]);
+      data = Uint8Array.from([...data, ...chunk])
     }
 
-    const blob = new Blob([data.buffer], { type: "application/octet-stream" });
-    saveAs(blob, file.name);
-  };
+    const blob = new Blob([data.buffer], { type: "application/octet-stream" })
+    saveAs(blob, file.name)
+  }
 
   const shareFile = async (hash: string) => {
-    const url = `https://ipfs.io/ipfs/${hash}?download=true`;
-    await copy(url);
-    alert("Shareable Link Copied to Clipboard");
-  };
+    const url = `https://ipfs.io/ipfs/${hash}?download=true`
+    navigator.clipboard.writeText(url)
+    alert("Shareable Link Copied to Clipboard")
+  }
 
   return (
     <section className="space-y-5 overflow-y-scroll max-h-[420px] overflow-hidden no-scrollbar">
@@ -71,7 +70,7 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
         </div>
       ))}
     </section>
-  );
-};
+  )
+}
 
-export default DisplayFiles;
+export default DisplayFiles
