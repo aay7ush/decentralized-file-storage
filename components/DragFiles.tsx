@@ -1,32 +1,31 @@
-import { create } from "ipfs-http-client"
-import { nanoid } from "nanoid"
-import Image from "next/image"
+import { create } from "ipfs-http-client";
+import { nanoid } from "nanoid";
+import Image from "next/image";
 
 const ipfs = create({
   host: "localhost",
   port: 5001,
   protocol: "http",
-})
+});
 
 const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
   const onFileDrop = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFiles: Promise<FileObject>[] = Array.from(
       event.target.files as FileList
     ).map(async (file) => {
-      const fileData = new Uint8Array(await file.arrayBuffer())
-      const result = await ipfs.add(fileData)
-
+      const fileData = new Uint8Array(await file.arrayBuffer());
+      const result = await ipfs.add(fileData);
       return {
         id: nanoid(),
         name: file.name,
         size: file.size,
         hash: result.path, // Store the unique hash of the file
-      }
-    })
+      };
+    });
 
-    const resolvedFiles = await Promise.all(newFiles)
-    setFiles((prev) => [...prev, ...resolvedFiles])
-  }
+    const resolvedFiles = await Promise.all(newFiles);
+    setFiles((prev) => [...prev, ...resolvedFiles]);
+  };
 
   return (
     <section className="relative bg-[#effaff] border-dashed border-blue-100 border-[7px]  rounded-xl grid place-content-center">
@@ -51,7 +50,7 @@ const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
         multiple
       />
     </section>
-  )
-}
+  );
+};
 
-export default DragFiles
+export default DragFiles;
