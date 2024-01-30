@@ -20,7 +20,7 @@ export const ConnectWallet = () => {
 
   return (
     <div>
-      {/* <p>You are connected as {activeAccountId}</p> */}
+      {/*<p>You are connected as {activeAccountId}</p>*/}
       <div>
         <Button onClick={handleSignout}> Disconnect </Button>
       </div>

@@ -29,7 +29,7 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
   }
 
   const shareFile = async (hash: string) => {
-    const url = `https://ipfs.io/ipfs/${hash}?download=true`
+    const url = `https://ipfs.io/ipfs/${hash}`
     navigator.clipboard.writeText(url)
     alert("Shareable Link Copied to Clipboard")
   }
