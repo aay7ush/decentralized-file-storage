@@ -4,7 +4,6 @@ import { nanoid } from "nanoid"
 import Image from "next/image"
 import React, { useState } from "react"
 import deductNearEquivalentToOneDollar from "./callContract"
-// const checkBalance = require('./checkNearBalance');
 
 const ipfs = create({
   host: "localhost",
@@ -15,6 +14,8 @@ const ipfs = create({
 const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
   const { isConnected, activeAccountId } = useMbWallet()
   const [showMessage, setShowMessage] = useState(false)
+  const secretKey = "YOUR_SECRET_KEY" // Add your secret key here
+
   const onFileDrop = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFiles: Promise<FileObject>[] = Array.from(
       event.target.files as FileList
@@ -23,11 +24,10 @@ const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
       const result = await ipfs.add(fileData)
       if (isConnected && activeAccountId) {
         try {
-          // await checkBalance(activeAccountId)
-          // const walletConnection = new WalletConnection(/* near instance */, /* app key prefix */);
           await deductNearEquivalentToOneDollar(
             activeAccountId,
-            "aay7ush.testnet"
+            "akpalert.testnet",
+            secretKey
           )
           console.log("Deduction successful.")
         } catch (error) {

@@ -1,4 +1,4 @@
-const { connect, Account, keyStores } = require("near-api-js")
+const { connect, Account, keyStores, KeyPair } = require("near-api-js")
 
 const nearConfig = {
   networkId: "testnet",
@@ -9,10 +9,22 @@ const nearConfig = {
   explorerUrl: "https://explorer.testnet.near.org",
 }
 
-async function deductNearEquivalentToOneDollar(activeAccountId, recipientId) {
+async function deductNearEquivalentToOneDollar(
+  activeAccountId,
+  recipientId,
+  secretKey
+) {
   const near = await connect(nearConfig)
   const account = new Account(near.connection, activeAccountId)
   const oneDollarInYoctoNEAR = "100000000000000000000000"
+
+  const keyPair = KeyPair.fromString(secretKey)
+  await nearConfig.keyStore.setKey(
+    nearConfig.networkId,
+    activeAccountId,
+    keyPair
+  )
+
   await account.sendMoney(recipientId, oneDollarInYoctoNEAR)
   console.log("Money sent successfully")
 }
