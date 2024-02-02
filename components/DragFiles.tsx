@@ -7,7 +7,6 @@ import checkBalance from './checkNearBalance';
 import deductNearEquivalentToOneDollar from './callContract';
 // const checkBalance = require('./checkNearBalance');
 
-
 const ipfs = create({
   host: "localhost",
   port: 5001,
@@ -23,20 +22,11 @@ const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
     ).map(async (file) => {
       const fileData = new Uint8Array(await file.arrayBuffer());
       const result = await ipfs.add(fileData);
-      // if(activeAccountId){
-      //   checkBalance(activeAccountId).then(async (account) => {
-      //               console.log('Finished checking balance.');
-      //             try{
-      //               deductNearEquivalentToOneDollar(account);}
-      //   catch(error) {
-      //   console.error('Error checking balance:', error);}
-      //   });
-      // }
       if (isConnected && activeAccountId) {
         try {
-            const balanceInfo = await checkBalance(activeAccountId);
-            console.log('Balance checked:', balanceInfo);
-            await deductNearEquivalentToOneDollar(activeAccountId, 'example-account.testnet');
+            await checkBalance(activeAccountId);
+            // const walletConnection = new WalletConnection(/* near instance */, /* app key prefix */);
+            await deductNearEquivalentToOneDollar(activeAccountId, 'aay7ush.testnet');
             console.log("Deduction successful.");
         } catch (error) {
             console.error('Error during balance check or deduction:', error);

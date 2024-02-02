@@ -9,9 +9,11 @@ edition = "2021"
 near-sdk = "4.0.0-pre.4"  # Use the latest version available
 
 [lib]
-crate-type = ["cdylib", "rlib"]
+crate-type = ["cdylib"]
 
 [profile.release]
+overflow-checks = true
 opt-level = "z"
 lto = true
 debug = false
+panic = "abort"
