@@ -3,20 +3,7 @@ import { useMbWallet } from "@mintbase-js/react"
 import { Button } from "./ui/button"
 
 export const ConnectWallet = () => {
-  const { isConnected, selector, connect } = useMbWallet()
-
-  // const handleSignout = async () => {
-  //   const wallet = await selector.wallet()
-  //   return wallet.signOut()
-  // }
-
-  // const handleSignIn = async () => {
-  //   return connect()
-  // }
-
-  // if (!isConnected) {
-  //   return <Button onClick={handleSignIn}>Connect To NEAR</Button>
-  // }
+  const { connect } = useMbWallet()
 
   return (
     <div className="fixed top-0 z-10 bg-black gradient text-white w-full min-h-screen grid place-content-center text-center space-y-5">
