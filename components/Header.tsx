@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ConnectWallet } from "./ConnectWallet"
 
 const Header = () => {
   return (
@@ -6,7 +7,7 @@ const Header = () => {
       <Link href="/" className="text-2xl font-bold">
         DApp File Storage
       </Link>
-      {/* <ConnectWallet /> */}
+      <ConnectWallet />
     </header>
   )
 }
