@@ -65,4 +65,13 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .gradient {
+    background: radial-gradient(
+      circle,
+      rgba(144, 40, 47, 0.3) 0,
+      rgba(144, 40, 47, 0.6) 0,
+      rgba(16, 18, 35, 0.373) 55%
+    );
+  }
 }
