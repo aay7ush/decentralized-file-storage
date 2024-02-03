@@ -2,6 +2,7 @@
 
 import { useMbWallet } from "@mintbase-js/react"
 import Link from "next/link"
+import WalletBalance from "./WalletBalance"
 import { Button } from "./ui/button"
 
 const Header = () => {
@@ -13,7 +14,7 @@ const Header = () => {
         DApp File Storage
       </Link>
       <div className="flex gap-3">
-        {/* <WalletBalance /> */}
+        <WalletBalance />
         <Button onClick={() => disconnect()}>Disconnect</Button>
       </div>
     </header>

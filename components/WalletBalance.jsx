@@ -1,14 +1,17 @@
+const { keyStores } = require("near-api-js")
+
 import { useMbWallet } from "@mintbase-js/react"
 import { connect, utils } from "near-api-js"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { buttonVariants } from "./ui/button"
 
 const nearConfig = {
   networkId: "testnet",
+  keyStore: new keyStores.BrowserLocalStorageKeyStore(),
+  nodeUrl: "https://rpc.testnet.near.org",
   walletUrl: "https://wallet.testnet.near.org",
   helperUrl: "https://helper.testnet.near.org",
-  nodeUrl: "https://rpc.testnet.near.org",
-  keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore(),
+  explorerUrl: "https://explorer.testnet.near.org",
 }
 
 const WalletBalance = () => {
