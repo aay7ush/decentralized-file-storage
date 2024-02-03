@@ -1,21 +1,21 @@
 "use client"
-import { useMbWallet } from "@mintbase-js/react";
+import { useMbWallet } from "@mintbase-js/react"
 import { Button } from "./ui/button"
 
 export const ConnectWallet = () => {
-  const { isConnected, selector, connect , activeAccountId } = useMbWallet();
+  const { isConnected, selector, connect } = useMbWallet()
 
   const handleSignout = async () => {
-    const wallet = await selector.wallet();
-    return wallet.signOut();
-  };
+    const wallet = await selector.wallet()
+    return wallet.signOut()
+  }
 
   const handleSignIn = async () => {
-    return connect();
-  };
+    return connect()
+  }
 
   if (!isConnected) {
-    return <Button onClick={handleSignIn}>Connect To NEAR</Button>;
+    return <Button onClick={handleSignIn}>Connect To NEAR</Button>
   }
 
   return (
@@ -25,5 +25,5 @@ export const ConnectWallet = () => {
         <Button onClick={handleSignout}> Disconnect </Button>
       </div>
     </div>
-  );
-};
+  )
+}

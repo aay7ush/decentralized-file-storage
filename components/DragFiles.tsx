@@ -14,7 +14,6 @@ const ipfs = create({
 const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
   const { isConnected, activeAccountId } = useMbWallet()
   const [showMessage, setShowMessage] = useState(false)
-  const secretKey = "YOUR_SECRET_KEY" // Add your secret key here
 
   const onFileDrop = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFiles: Promise<FileObject>[] = Array.from(
@@ -26,8 +25,7 @@ const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
         try {
           await deductNearEquivalentToOneDollar(
             activeAccountId,
-            "akpalert.testnet",
-            secretKey
+            "aay7ush.testnet"
           )
           console.log("Deduction successful.")
         } catch (error) {
@@ -38,7 +36,7 @@ const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
         id: nanoid(),
         name: file.name,
         size: file.size,
-        hash: result.path, // Store the unique hash of the file
+        hash: result.path,
       }
     })
 
