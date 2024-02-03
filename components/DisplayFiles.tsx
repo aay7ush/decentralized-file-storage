@@ -4,8 +4,11 @@ import { saveAs } from "file-saver"
 import { create } from "ipfs-http-client"
 import { Download, Share2, X } from "lucide-react"
 import Image from "next/image"
+import { useMbWallet } from "@mintbase-js/react"
+import deductNearEquivalentToOneDollar from "./callContract"
 
 const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
+  const { isConnected, activeAccountId } = useMbWallet()
   const ipfs = create({
     host: "localhost",
     port: 5001,
@@ -26,11 +29,33 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
 
     const blob = new Blob([data.buffer], { type: "application/octet-stream" })
     saveAs(blob, file.name)
+    if (isConnected && activeAccountId) {
+      try {
+        await deductNearEquivalentToOneDollar(
+          activeAccountId,
+          "aay7ush.testnet"
+        )
+        console.log("Deduction successful.")
+      } catch (error) {
+        console.error("Error during balance check or deduction:", error)
+      }
+    }
   }
 
   const shareFile = async (hash: string) => {
     const url = `https://ipfs.io/ipfs/${hash}?download=true`
     navigator.clipboard.writeText(url)
+    if (isConnected && activeAccountId) {
+      try {
+        await deductNearEquivalentToOneDollar(
+          activeAccountId,
+          "aay7ush.testnet"
+        )
+        console.log("Deduction successful.")
+      } catch (error) {
+        console.error("Error during balance check or deduction:", error)
+      }
+    }
     alert("Shareable Link Copied to Clipboard")
   }
 
