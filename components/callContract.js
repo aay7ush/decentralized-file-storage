@@ -12,7 +12,7 @@ async function deductNearEquivalentToOneDollar(activeAccountId, recipientId) {
 
     const contract = new Contract(account, contractName, {
         viewMethods: [],
-        changeMethods: ["deduct_near"]
+        changeMethods: ["transfer"]
     });
     const totalAttachedNEAR = utils.format.parseNearAmount("0.26");; // Convert 0.26 NEAR to yoctoNEAR
     
