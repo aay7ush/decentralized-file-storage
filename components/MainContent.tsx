@@ -13,7 +13,7 @@ const MainContent = () => {
   return (
     <>
       {isConnected ? (
-        <article className="grid grid-cols-1 md:grid-cols-2 gap-7 p-5">
+        <article className="grid grid-cols-1 md:grid-cols-2 gap-7 p-5 basis-full">
           <DragFiles setFiles={setFiles} />
           <DisplayFiles files={files} setFiles={setFiles} />
         </article>
