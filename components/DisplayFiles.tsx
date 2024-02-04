@@ -7,9 +7,12 @@ import { Download, Share2, X } from "lucide-react"
 import Image from "next/image"
 import deductNearEquivalentToOneDollar from "../lib/nearContract"
 import { Button } from "./ui/button"
+import { useToast } from "./ui/use-toast"
 
 const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
   const { isConnected, activeAccountId } = useMbWallet()
+  const { toast } = useToast()
+
   const ipfs = create({
     host: "localhost",
     port: 5001,
@@ -30,6 +33,10 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
 
     const blob = new Blob([data.buffer], { type: "application/octet-stream" })
     saveAs(blob, file.name)
+    toast({
+      description: "✅ File downloaded successfully!",
+    })
+
     if (isConnected && activeAccountId) {
       try {
         await deductNearEquivalentToOneDollar(
@@ -57,7 +64,9 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
         console.error("Error during balance check or deduction:", error)
       }
     }
-    alert("Shareable Link Copied to Clipboard")
+    toast({
+      description: "✅ Shareable link copied to clipboard.",
+    })
   }
 
   return (
