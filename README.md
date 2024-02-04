@@ -29,13 +29,13 @@ Check out the live site [here](URL).
 
 ## Installation
 
-<!-- TODO: IPFS setup instruction -->
-
 1. Clone the repository: `git clone https://github.com/your-username/decentralized-file-storage.git`
 2. Navigate to the project directory: `cd decentralized-file-storage`
 3. Install the dependencies: `npm install`
-4. Start the development server: `npm run dev`
-5. Open your web browser and visit `http://localhost:3000` (or the specified port)
+4. Download IPFS desktop application
+5. Edit IPFS config file add localhost url in `Access-Control-Allow-Origin`
+6. Start the development server: `npm run dev`
+7. Open your web browser and visit `http://localhost:3000` (or the specified port)
 
 Ensure that you have the required NEAR Wallet for seamless authentication.
 
