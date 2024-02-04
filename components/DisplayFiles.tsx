@@ -1,11 +1,12 @@
 "use client"
 
+import { useMbWallet } from "@mintbase-js/react"
 import { saveAs } from "file-saver"
 import { create } from "ipfs-http-client"
 import { Download, Share2, X } from "lucide-react"
 import Image from "next/image"
-import { useMbWallet } from "@mintbase-js/react"
-import deductNearEquivalentToOneDollar from "./callContract"
+import deductNearEquivalentToOneDollar from "../lib/nearContract"
+import { Button } from "./ui/button"
 
 const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
   const { isConnected, activeAccountId } = useMbWallet()
@@ -73,24 +74,21 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
           </div>
 
           <div className="flex gap-3">
-            <button
-              className="border-2 p-1 border-green-500 text-green-500 rounded-full transition duration-200 hover:bg-green-500 hover:text-white"
-              onClick={() => shareFile(file.hash)}
-            >
+            <Button size={"icon"} onClick={() => shareFile(file.hash)}>
               <Share2 size={18} />
-            </button>
-            <button
-              className="border-2 p-1 border-blue-500 text-blue-500 rounded-full transition duration-200 hover:bg-blue-500 hover:text-white"
-              onClick={() => downloadFile(file)}
-            >
+            </Button>
+
+            <Button size={"icon"} onClick={() => downloadFile(file)}>
               <Download size={18} />
-            </button>
-            <button
-              className="border-2 p-1 border-red-500 text-red-500 rounded-full transition duration-200 hover:bg-red-500 hover:text-white"
+            </Button>
+
+            <Button
+              variant={"destructive"}
+              size={"icon"}
               onClick={() => removeFile(file.hash)}
             >
               <X size={18} />
-            </button>
+            </Button>
           </div>
         </div>
       ))}
