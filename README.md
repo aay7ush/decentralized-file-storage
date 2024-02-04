@@ -4,11 +4,13 @@ Welcome to our Decentralized File Storage App! This application leverages the po
 
 ## Screenshot
 
-![]()
+![](/public/screenshot.png)
 
 ## Live Site
 
 Check out the live site [here](URL).
+
+<!-- TODO: IPFS setup instruction -->
 
 ## Features
 
@@ -40,35 +42,12 @@ Ensure that you have the required NEAR Wallet for seamless authentication.
 ## Technologies Used
 
 - **Next.js**: Next.js is used as the framework for building the frontend of the application. It provides server-side rendering and a great developer experience.
-
 - **React**: Library for building user interfaces.
-
 - **TypeScript**: TypeScript is used to add static typing to the application, making it more robust and maintainable.
-
 - **Tailwind CSS**: A utility-first CSS framework for designing responsive and modern user interfaces.
-
 - **Mintbase**: Let users integrate with the NEAR blockchain
-
 - **IPFS**: InterPlanetary File System for decentralized file storage.
-
 - **NEAR API**: NEAR blockchain API for smart contract interaction.
-
-## Tech Stack
-
-- **@mintbase-js/react**: Mintbase library for React integration.
-- **@near-wallet-selector/modal-ui**: NEAR Wallet selector UI.
-- **@radix-ui/react-slo**: React component library for UI.
-- **class-variance-authority**: For decentralized identity.
-- **clsx**: A utility for composing class names.
-- **file-saver**: For saving files on the client-side.
-- **ipfs-http-client**: IPFS client for interacting with the decentralized file system.
-- **lucide-react**: Icon set for UI.
-- **nanoid**: Library for generating unique IDs.
-- **near-api-js**: NEAR blockchain API for interaction.
-- **react-dom**: React DOM library for web applications.
-- **tailwind-merge**: Tailwind CSS utility for merging styles.
-- **tailwindcss-animate**: Tailwind CSS animations.
--
 
 ## Contributing
 
