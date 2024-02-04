@@ -4,13 +4,11 @@ Welcome to our Decentralized File Storage App! This application leverages the po
 
 ## Screenshot
 
-![](/public/screenshot.png)
+![App Screenshot](/public/screenshot.png)
 
 ## Live Site
 
 Check out the live site [here](URL).
-
-<!-- TODO: IPFS setup instruction -->
 
 ## Features
 
@@ -30,6 +28,8 @@ Check out the live site [here](URL).
 - **Transaction Fees**: A certain fee is deducted from the user's NEAR Wallet on every download, upload, or sharing of files. This ensures sustainability and supports the decentralized infrastructure.
 
 ## Installation
+
+<!-- TODO: IPFS setup instruction -->
 
 1. Clone the repository: `git clone https://github.com/your-username/decentralized-file-storage.git`
 2. Navigate to the project directory: `cd decentralized-file-storage`
