@@ -12,11 +12,12 @@ const WalletBalance = () => {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const near: Near = await connect(nearConfig as ConnectConfig)
-        const account: Account = await near.account(activeAccountId)
-        const balance: AccountBalance = await account.getAccountBalance()
-
-        setBalance(balance)
+        if (activeAccountId) {
+          const near: Near = await connect(nearConfig as ConnectConfig)
+          const account: Account = await near.account(activeAccountId)
+          const balance: AccountBalance = await account.getAccountBalance()
+          setBalance(balance)
+        }
       } catch (error) {
         console.error("Error fetching balance:", error)
       }
