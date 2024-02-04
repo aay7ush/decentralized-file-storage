@@ -3,7 +3,7 @@ import { create } from "ipfs-http-client"
 import { nanoid } from "nanoid"
 import Image from "next/image"
 import React, { useState } from "react"
-import deductNearEquivalentToOneDollar from "./callContract"
+import deductNearEquivalentToOneDollar from "../lib/nearContract"
 
 const ipfs = create({
   host: "localhost",
