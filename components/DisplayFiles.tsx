@@ -1,17 +1,20 @@
 "use client"
 
+import useStore from "@/context/store"
 import { useMbWallet } from "@mintbase-js/react"
 import { saveAs } from "file-saver"
 import { create } from "ipfs-http-client"
 import { Download, Share2, X } from "lucide-react"
 import Image from "next/image"
 import deductNearEquivalentToOneDollar from "../lib/nearContract"
+import { fetchBalance } from "./WalletBalance"
 import { Button } from "./ui/button"
 import { useToast } from "./ui/use-toast"
 
 const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
   const { isConnected, activeAccountId } = useMbWallet()
   const { toast } = useToast()
+  const { setBalance } = useStore()
 
   const ipfs = create({
     host: "localhost",
@@ -19,8 +22,23 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
     protocol: "http",
   })
 
-  const removeFile = (hash: string) => {
+  const removeFile = async (hash: string) => {
+    if (isConnected && activeAccountId) {
+      try {
+        await deductNearEquivalentToOneDollar(
+          activeAccountId,
+          "aay7ush.testnet"
+        )
+        console.log("Deduction successful.")
+        fetchBalance(activeAccountId, setBalance)
+      } catch (error) {
+        console.error("Error during balance check or deduction:", error)
+      }
+    }
     setFiles((prev) => prev.filter((file) => file.hash !== hash))
+    toast({
+      description: "✅ File removed successfully!",
+    })
   }
 
   const downloadFile = async (file: { hash: string; name: string }) => {
@@ -32,10 +50,6 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
     }
 
     const blob = new Blob([data.buffer], { type: "application/octet-stream" })
-    saveAs(blob, file.name)
-    toast({
-      description: "✅ File downloaded successfully!",
-    })
 
     if (isConnected && activeAccountId) {
       try {
@@ -44,10 +58,16 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
           "aay7ush.testnet"
         )
         console.log("Deduction successful.")
+        fetchBalance(activeAccountId, setBalance)
       } catch (error) {
         console.error("Error during balance check or deduction:", error)
       }
     }
+
+    saveAs(blob, file.name)
+    toast({
+      description: "✅ File downloaded successfully!",
+    })
   }
 
   const shareFile = async (hash: string) => {
@@ -60,6 +80,7 @@ const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, setFiles }) => {
           "aay7ush.testnet"
         )
         console.log("Deduction successful.")
+        fetchBalance(activeAccountId, setBalance)
       } catch (error) {
         console.error("Error during balance check or deduction:", error)
       }

@@ -1,30 +1,34 @@
+import useStore from "@/context/store"
 import nearConfig from "@/lib/nearConfig"
 import { useMbWallet } from "@mintbase-js/react"
 import { Account, ConnectConfig, Near, connect, utils } from "near-api-js"
 import { AccountBalance } from "near-api-js/lib/account"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { buttonVariants } from "./ui/button"
 
+export const fetchBalance = async (
+  activeAccountId: string | null,
+  setBalance: React.Dispatch<React.SetStateAction<AccountBalance | null>>
+) => {
+  try {
+    if (activeAccountId) {
+      const near: Near = await connect(nearConfig as ConnectConfig)
+      const account: Account = await near.account(activeAccountId)
+      const balance: AccountBalance = await account.getAccountBalance()
+      setBalance(balance)
+    }
+  } catch (error) {
+    console.error("Error fetching balance:", error)
+  }
+}
+
 const WalletBalance = () => {
-  const [balance, setBalance] = useState<null | AccountBalance>(null)
   const { activeAccountId } = useMbWallet()
+  const { balance, setBalance } = useStore()
 
   useEffect(() => {
-    const fetchBalance = async () => {
-      try {
-        if (activeAccountId) {
-          const near: Near = await connect(nearConfig as ConnectConfig)
-          const account: Account = await near.account(activeAccountId)
-          const balance: AccountBalance = await account.getAccountBalance()
-          setBalance(balance)
-        }
-      } catch (error) {
-        console.error("Error fetching balance:", error)
-      }
-    }
-
-    fetchBalance()
-  }, [activeAccountId])
+    fetchBalance(activeAccountId, setBalance)
+  }, [activeAccountId, setBalance])
 
   return (
     <div>

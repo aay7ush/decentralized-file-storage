@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import { WalletProvider } from "@/components/MintbaseWalletProvider"
+import Provider from "@/components/Provider"
 import { Toaster } from "@/components/ui/toaster"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
@@ -20,15 +21,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <WalletProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <Header />
-          {children}
-          <Toaster />
-          <Footer />
-        </body>
-      </html>
-    </WalletProvider>
+    <Provider>
+      <WalletProvider>
+        <html lang="en">
+          <body className={inter.className}>
+            <Header />
+            {children}
+            <Toaster />
+            <Footer />
+          </body>
+        </html>
+      </WalletProvider>
+    </Provider>
   )
 }

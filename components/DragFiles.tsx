@@ -1,9 +1,12 @@
+import useStore from "@/context/store"
 import { useMbWallet } from "@mintbase-js/react"
 import { create } from "ipfs-http-client"
 import { nanoid } from "nanoid"
 import Image from "next/image"
 import React, { useState } from "react"
 import deductNearEquivalentToOneDollar from "../lib/nearContract"
+import { fetchBalance } from "./WalletBalance"
+import { toast } from "./ui/use-toast"
 
 const ipfs = create({
   host: "localhost",
@@ -14,6 +17,7 @@ const ipfs = create({
 const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
   const { isConnected, activeAccountId } = useMbWallet()
   const [showMessage, setShowMessage] = useState(false)
+  const { setBalance } = useStore()
 
   const onFileDrop = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFiles: Promise<FileObject>[] = Array.from(
@@ -28,10 +32,14 @@ const DragFiles: React.FC<DragFilesProps> = ({ setFiles }) => {
             "aay7ush.testnet"
           )
           console.log("Deduction successful.")
+          fetchBalance(activeAccountId, setBalance)
         } catch (error) {
           console.error("Error during balance check or deduction:", error)
         }
       }
+      toast({
+        description: "✅ File uploaded successfully!",
+      })
       return {
         id: nanoid(),
         name: file.name,
